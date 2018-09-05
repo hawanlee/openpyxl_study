@@ -36,3 +36,28 @@ for row in ws.iter_rows(min_row=1,max_col=3, max_row=2):
 ws['F7']='hello world'
 print(ws['F7'].value)
 
+import datetime
+
+ws['F5']=datetime.datetime.now()
+
+# saving files
+wb.save('myFirstExcel.xlsx')
+
+'''
+You can specify the attribute template=True, to save a workbook as a template:
+
+>>> wb = load_workbook('document.xlsx')
+>>> wb.template = True
+>>> wb.save('document_template.xltx')
+'''
+# open existing files
+'''
+The same way as writing, you can import openpyxl.load_workbook() to open an existing workbook:
+
+>>> from openpyxl import load_workbook
+>>> wb2 = load_workbook('test.xlsx')
+>>> print wb2.sheetnames
+['Sheet2', 'New Title', 'Sheet1']
+'''
+
+

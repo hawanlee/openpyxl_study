@@ -26,10 +26,18 @@ ws.unmerge_cells('A4:D4')
 # or
 ws.merge_cells(start_row=6, start_column=1, end_row=6, end_column=7)
 
+# insert an image
+from openpyxl.drawing.image import Image
 
+ws['A7']='You should see threelogos below'
+img=Image('cell.png')
+ws.add_image(img,'A1')
 
+# fold
 
-
+import openpyxl
+ws5=wb.create_sheet()
+ws.column_dimensions.group('G','H',hidden=True)
 
 
 wb.save('3_formula.xlsx')

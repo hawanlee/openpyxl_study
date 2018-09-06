@@ -27,7 +27,8 @@ python中时间日期格式化符号：
 %Z 当前时区的名称
 %% %号本身
 '''
-reviewTime=[]
+a=datetime.datetime.strptime('2018/09/06 09:00:00', '%Y/%m/%d %H:%M:%S')
+b=datetime.datetime.strptime('2018/09/06 09:05:00', '%Y/%m/%d %H:%M:%S')
+print(int(((b-a).seconds)/60))
 
-for target_list in expression_list:
-    pass
+

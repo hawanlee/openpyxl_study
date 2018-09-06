@@ -1,5 +1,10 @@
+#! /usr/bin/python
+# coding=utf-8
+
 import csv
 import datetime
+from openpyxl import load_workbook
+import time
 
 with open('TaskDemo.csv',encoding='utf-8') as csvfile:
     reader=csv.reader(csvfile)
@@ -8,7 +13,11 @@ print(len(rows))
 
 reviewTime=[]
 for i in range(0,len(rows)):
-    reviewTime.append(rows[i][8])
+    reviewTime.append((rows[i][8])[:-3])
+    # 切除后三位字符
+    if i!=0:
+        reviewTime[i]=datetime.datetime.strptime(reviewTime[i], '%Y/%m/%d %H:%M:%S')
+        # 将字符串转换为标准日期格式
 print(reviewTime)
 
 topic=[]
@@ -36,5 +45,30 @@ for i in range(0,len(rows)):
     reviewSite.append(rows[i][9])
 print(reviewSite)
 
+'''
+a=datetime.datetime.strptime('2018/09/06 09:00:00', '%Y/%m/%d %H:%M:%S')
+b=datetime.datetime.strptime('2018/09/06 09:05:00', '%Y/%m/%d %H:%M:%S')
+print(int(((b-a).seconds)/60))
+# 输出时间差
+'''
 
+minutes=[]
+for i in range(0,len(rows)-2):
+    a1=reviewTime[i+1]
+    a2=reviewTime[i+2]
+    minutes.append(str(int(((a2-a1).seconds)/60))+' min')
+minutes.append('手动输入')
+print(minutes)
 
+te=load_workbook('demoW36.xlsx')
+ws=te.active
+print(ws['A5'].value)
+
+for i in range(0,len(rows)-1):
+    column_A='A'+str(i+5)
+    ttt=datetime.datetime.strftime(reviewTime[i+1], '%H:%M')
+    # 将标准日期格式转换为字符串
+    ws[column_A].value=ttt
+
+    
+te.save('demoW36_generate.xlsx')

@@ -39,5 +39,4 @@ import openpyxl
 ws5=wb.create_sheet()
 ws.column_dimensions.group('G','H',hidden=True)
 
-
 wb.save('3_formula.xlsx')

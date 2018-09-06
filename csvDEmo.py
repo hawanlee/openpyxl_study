@@ -5,6 +5,8 @@ import csv
 import datetime
 from openpyxl import load_workbook
 import time
+from copy import copy
+from openpyxl.styles import Border, Side, Font
 
 with open('TaskDemo.csv',encoding='utf-8') as csvfile:
     reader=csv.reader(csvfile)
@@ -69,6 +71,23 @@ for i in range(0,len(rows)-1):
     ttt=datetime.datetime.strftime(reviewTime[i+1], '%H:%M')
     # 将标准日期格式转换为字符串
     ws[column_A].value=ttt
+    column_B='B'+str(i+5)
+    ws[column_B].value=minutes[i]
+    column_C='C'+str(i+5)
+    ws[column_C]=topic[i+1]
+    column_D='D'+str(i+5)
+    ws[column_D]=pipelineStep[i+1]
+    ws['E'+str(i+5)]=reviewPurpose[i+1]
+    ws['F'+str(i+5)]=presenter[i+1]
+    ws['G'+str(i+5)]=reviewSite[i+1]
 
-    
+    bbb = Border(left=Side(style='thin',color='FF000000'),right=Side(style='thin',color='FF000000'),top=Side(style='thin',color='FF000000'),bottom=Side(style='thin',color='FF000000'))
+    ws[column_A].border=bbb
+    ws[column_C].border=bbb
+    ws[column_D].border=bbb
+    ws[column_B].border = bbb
+    ws['E'+str(i+5)].border=bbb
+    ws['F'+str(i+5)].border=bbb
+    ws['G'+str(i+5)].border=bbb
+
 te.save('demoW36_generate.xlsx')

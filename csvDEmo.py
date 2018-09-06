@@ -8,9 +8,9 @@ import time
 from copy import copy
 from openpyxl.styles import Border, Side, Font
 
-with open('TaskDemo.csv', encoding='utf-8') as csvfile:
-    reader = csv.reader(csvfile)
-    rows = [row for row in reader]
+with open('Task.csv',encoding='utf-8') as csvfile:
+    reader=csv.reader(csvfile)
+    rows=[row for row in reader]
 print(len(rows))
 
 reviewTime = []
@@ -63,8 +63,8 @@ for i in range(0, len(rows)-2):
 minutes.append('手动输入')
 print(minutes)
 
-te = load_workbook('demoW36.xlsx')
-ws = te.active
+te=load_workbook('TemplateEDR.xlsx')
+ws=te.active
 print(ws['A5'].value)
 
 for i in range(0, len(rows)-1):
@@ -92,4 +92,5 @@ for i in range(0, len(rows)-1):
     ws['F'+str(i+5)].border = bbb
     ws['G'+str(i+5)].border = bbb
 
-te.save('demoW36_generate.xlsx')
+date1=datetime.datetime.strftime(reviewTime[1], '%Y%m%d')
+te.save('EDR review_'+str(date1)+'.xlsx')

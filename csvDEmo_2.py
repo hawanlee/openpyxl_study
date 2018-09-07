@@ -23,6 +23,12 @@ for i in range(0, len(rows)):
         # 将字符串转换为标准日期格式
 print(reviewTime)
 
+amPm=[]
+for i in range(0, len(rows)):
+    amPm.append((rows[i][8])[-3:])
+
+print(amPm)
+
 topic = []
 for i in range(0, len(rows)):
     topic.append(rows[i][3])
@@ -69,7 +75,7 @@ print(ws['A5'].value)
 
 for i in range(0, len(rows)-1):
     column_A = 'A'+str(i+5)
-    ttt = datetime.datetime.strftime(reviewTime[i+1], '%H:%M')
+    ttt = datetime.datetime.strftime(reviewTime[i+1], '%H:%M')+amPm[i+1]
     # 将标准日期格式转换为字符串
     ws[column_A].value = ttt
     column_B = 'B'+str(i+5)
